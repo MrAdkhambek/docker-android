@@ -1,0 +1,33 @@
+FROM gradle:8.2.1-jdk17
+
+ENV ANDROID_SDK_URL https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+ENV ANDROID_API_LEVEL android-33
+ENV ANDROID_BUILD_TOOLS_VERSION 33.0.0
+ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV ANDROID_NDK_VERSION 25.2.9519653
+ENV ANDROID_VERSION 33
+ENV ANDROID_NDK_HOME ${ANDROID_HOME}/ndk/${ANDROID_NDK_VERSION}/
+ENV PATH ${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
+RUN mkdir "$ANDROID_HOME" .android && \
+    cd "$ANDROID_HOME" && \
+    curl -o sdk.zip $ANDROID_SDK_URL && \
+    unzip sdk.zip && \
+    rm sdk.zip
+
+
+RUN yes | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
+RUN yes | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME --update
+
+RUN $ANDROID_HOME/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME \
+    "build-tools;30.0.3" \
+    "build-tools;${ANDROID_BUILD_TOOLS_VERSION}" \
+    "platforms;android-${ANDROID_VERSION}" \
+    "platform-tools" \
+    "ndk;$ANDROID_NDK_VERSION"
+
+RUN cp $ANDROID_HOME/build-tools/30.0.3/dx $ANDROID_HOME/build-tools/33.0.0/dx
+RUN cp $ANDROID_HOME/build-tools/30.0.3/lib/dx.jar $ANDROID_HOME/build-tools/33.0.0/lib/dx.jar
+
+ENV PATH ${ANDROID_NDK_HOME}:$PATH
+ENV PATH ${ANDROID_NDK_HOME}/prebuilt/linux-x86_64/bin/:$PATH
