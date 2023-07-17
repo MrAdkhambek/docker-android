@@ -15,7 +15,6 @@ RUN mkdir "$ANDROID_HOME" .android && \
     unzip sdk.zip && \
     rm sdk.zip
 
-
 RUN yes | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME --licenses
 RUN yes | ${ANDROID_HOME}/cmdline-tools/bin/sdkmanager --sdk_root=$ANDROID_HOME --update
 
