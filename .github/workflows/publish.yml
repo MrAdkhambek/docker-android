@@ -31,7 +31,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: mradkhambek/android:33
+          images: mradkhambek/android-33
       
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
