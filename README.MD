@@ -1,6 +1,6 @@
 # Android docker image
 
-| Library               | Version           |
+| TOOLS                 | Version           |
 | :---                  |       :----:      |
 | ANDROID VERSION       | 33                |
 | BUILD TOOLS           | [33.0.0, 30.0.3]  |
