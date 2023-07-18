@@ -1,13 +1,18 @@
+# Android docker image
+
+| Library               | Version           |
+| :---                  |       :----:      |
+| ANDROID VERSION       | 33                |
+| BUILD TOOLS           | [33.0.0, 30.0.3]  |
+| ANDROID NDK VERSION   | 25.2.9519653      |
+
+# Sample command
+
 ```bash
-docker run --rm --volume="$PWD:/app" -w="/app/" adkhambek-android sh -c "./gradlew assembleDebug"
+docker run --rm --volume="$PWD:/app" -w="/app/" mradkhambek/android-33 sh -c "./gradlew assembleDebug"
 ```
 
-## MacOS M1
+# OR
 ```bash
-docker build --platform linux/amd64 --no-cache --build-arg UID=`id -u` --build-arg GID=`id -g` -t adkhambek-android .
-```
-
-## Linux
-```bash
-docker build --no-cache --build-arg UID=`id -u` --build-arg GID=`id -g` -t adkhambek-android .
+docker run --rm --volume="$PWD:/app" -w="/app/" mradkhambek/android-33 sh -c "gradle assembleDebug"
 ```
